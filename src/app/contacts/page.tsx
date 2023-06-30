@@ -73,57 +73,57 @@ const Contacts = () => {
     setAddress(contact.address), setEmail(contact.email);
     setNumber(contact.number);
   }
-  // async function updateContact(contact: any) {
-  //   try {
-  //     console.log('old');
-  //     console.log(contact._id);
-  //     const res = await fetch(
-  //       `http://localhost:8000/contacts/update/${contact._id}`,
-  //       {
-  //         method: 'PUT',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         },
-  //         body: JSON.stringify({
-  //           name: name,
-  //           address: address,
-  //           email: email,
-  //           number: number,
-  //         }),
-  //       }
-  //     );
-  //     const newContacts = await res.json();
-  //     console.log('new');
-  //     console.log(newContacts);
+  async function updateContact(contact: any) {
+    try {
+      console.log('old');
+      console.log(contact._id);
+      const res = await fetch(
+        `http://localhost:8000/contacts/update/${contact._id}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: name,
+            address: address,
+            email: email,
+            number: number,
+          }),
+        }
+      );
+      const newContacts = await res.json();
+      console.log('new');
+      console.log(newContacts);
 
-  //     setName('');
-  //     setAddress('');
-  //     setEmail('');
-  //     setNumber('');
-  //     return newContacts;
-  //   } catch (e: any) {
-  //     console.log(e.message);
-  //   }
-  // }
-  const updateContactMutation = useMutation({
-    mutationFn: (contactData: {
-      id: string;
-      name: string;
-      address: string;
-      email: string;
-      number: string;
-    }) =>
-      updateContact(
-        contactData.id,
-        contactData.name,
-        contactData.address,
-        contactData.email,
-        contactData.number
-      ),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [queryKeys.CONTACTS] });
-    },
-  });
+      setName('');
+      setAddress('');
+      setEmail('');
+      setNumber('');
+      return newContacts;
+    } catch (e: any) {
+      console.log(e.message);
+    }
+  }
+  // const updateContactMutation = useMutation({
+  //   mutationFn: (contactData: {
+  //     id: string;
+  //     name: string;
+  //     address: string;
+  //     email: string;
+  //     number: string;
+  //   }) =>
+  //     updateContact(
+  //       contactData.id,
+  //       contactData.name,
+  //       contactData.address,
+  //       contactData.email,
+  //       contactData.number
+  //     ),
+  //   onSuccess: () => {
+  //     queryClient.invalidateQueries({ queryKey: [queryKeys.CONTACTS] });
+  //   },
+  // });
 
   //delete
   const deleteContactMutation = useMutation({
@@ -231,7 +231,7 @@ const Contacts = () => {
                         className="ml-2 rounded-lg  px-3 py-0.5 bg-emerald-200 "
                         onClick={() => {
                           editHandler(contact);
-                          // editContactMutation.mutate(contact._id);
+                          setData(contact);
                         }}
                       >
                         Edit
@@ -314,8 +314,8 @@ const Contacts = () => {
                   onClick={() => {
                     setModalOpen(false);
                     setBlur('blur-none');
-                    // updateContact(data);
-                    updateContactMutation.mutate(data);
+                    updateContact(data);
+                    // updateContactMutation.mutate(data);
                   }}
                 >
                   Save
