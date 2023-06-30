@@ -16,7 +16,7 @@ import {
 } from '../../../api';
 import React from 'react';
 
-import { ContactInterface, EditContactInterface } from '../../../types';
+import { ContactInterface, UpdateContactInterface } from '../../../types';
 
 const queryClient = new QueryClient();
 const queryKeys = { CONTACTS: 'contacts' };
@@ -35,13 +35,7 @@ const Contacts = () => {
   const [address, setAddress] = useState('');
   const [email, setEmail] = useState('');
   const [number, setNumber] = useState('');
-  const [data, setData] = useState<EditContactInterface>({
-    _id: '',
-    name: '',
-    address: '',
-    email: '',
-    number: '',
-  });
+  const [data, setData] = useState({});
   const [blur, setBlur] = useState('blur-none');
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -72,13 +66,12 @@ const Contacts = () => {
   });
 
   //edit
-  function editHandler(contact: ContactInterface) {
+  function editHandler(contact: any) {
     setBlur('blur-md');
     setModalOpen(true);
     setName(contact.name);
-    setAddress(contact.address ?? '');
-    setEmail(contact.email);
-    setNumber(contact.number ?? '');
+    setAddress(contact.address), setEmail(contact.email);
+    setNumber(contact.number);
   }
   // async function updateContact(contact: any) {
   //   try {
@@ -237,8 +230,8 @@ const Contacts = () => {
                       <button
                         className="ml-2 rounded-lg  px-3 py-0.5 bg-emerald-200 "
                         onClick={() => {
-                          setData(contact);
                           editHandler(contact);
+                          // editContactMutation.mutate(contact._id);
                         }}
                       >
                         Edit
@@ -322,7 +315,6 @@ const Contacts = () => {
                     setModalOpen(false);
                     setBlur('blur-none');
                     // updateContact(data);
-                    //problem
                     updateContactMutation.mutate(data);
                   }}
                 >

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ContactInterface, EditContactInterface } from '../types';
+import { ContactInterface, UpdateContactInterface } from '../types';
 
 export const fetchContacts = async (): Promise<ContactInterface[]> => {
   const res = await axios.get('http://localhost:8000/contacts/get-all');
@@ -47,7 +47,7 @@ export const updateContact = async (
   address: string,
   email: string,
   number: string
-): Promise<EditContactInterface> => {
+): Promise<UpdateContactInterface> => {
   try {
     console.log(_id);
     const res = await axios.put(

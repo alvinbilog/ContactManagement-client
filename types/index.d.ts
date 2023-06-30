@@ -5,8 +5,8 @@ export type ContactInterface = {
   email: string;
   number?: string;
 };
-export type EditContactInterface = {
-  _id: string;
+export type UpdateContactInterface = {
+  id: string;
   name?: string;
   address?: string;
   email?: string;
