@@ -42,25 +42,29 @@ export const addContacts = async (
   }
 };
 export const updateContact = async (
-  _id: string,
+  id: string,
   name: string,
   address: string,
   email: string,
   number: string
 ): Promise<UpdateContactInterface> => {
   try {
-    console.log(_id);
-    const res = await axios.put(
-      `http://localhost:8000/contacts/update/${_id}`,
-      {
-        name,
-        address,
-        email,
-        number,
-      }
-    );
-    const updatedData = await res.data;
-    return updatedData;
+    console.log('here');
+    console.log(id);
+    console.log(typeof id);
+    console.log('_______');
+    console.log(name);
+    console.log(address);
+    console.log(email);
+    console.log(number);
+    const res = await axios.put(`http://localhost:8000/contacts/update/${id}`, {
+      name,
+      address,
+      email,
+      number,
+    });
+    const newData = await res.data;
+    return newData;
   } catch (e: any) {
     console.log(e.message);
     throw new Error('Failed to edit contact.');
