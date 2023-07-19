@@ -49,14 +49,6 @@ export const updateContact = async (
   number: string
 ): Promise<UpdateContactInterface> => {
   try {
-    console.log('here');
-    console.log(id);
-    console.log(typeof id);
-    console.log('_______');
-    console.log(name);
-    console.log(address);
-    console.log(email);
-    console.log(number);
     const res = await axios.put(`http://localhost:8000/contacts/update/${id}`, {
       name,
       address,

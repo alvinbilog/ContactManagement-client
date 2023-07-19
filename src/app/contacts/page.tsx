@@ -17,8 +17,6 @@ import {
 import React from 'react';
 
 import { ContactInterface } from '../../../types';
-import Form from './components/Form';
-import { useRouter } from 'next/router';
 
 const queryClient = new QueryClient();
 
@@ -69,14 +67,8 @@ const Contacts = () => {
 
   //edit
   function editHandler(contact: any) {
-    console.log('*****');
     setData(contact);
-    console.log('^^^^^^^^^^^^^^');
-    console.log(data);
     setSelectedId(contact._id);
-    console.log('*****');
-    console.log(selectedId);
-
     setBlur('blur-md');
     setModalOpen(true);
     setName(contact.name);
@@ -133,6 +125,10 @@ const Contacts = () => {
       updateContact(data.id, data.name, data.address, data.email, data.number),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['contacts'] });
+      setName('');
+      setAddress('');
+      setEmail('');
+      setNumber('');
     },
   });
   //delete
