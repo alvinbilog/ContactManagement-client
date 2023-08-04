@@ -1,13 +1,10 @@
 import axios from 'axios';
 import { ContactInterface, UpdateContactInterface } from '../types';
 
-const awsServer = 'http://3.144.254.102:8000/contacts/get-all';
+const awsServer = 'http://3.144.254.102:8000/contacts';
 
 export const fetchContacts = async (): Promise<ContactInterface[]> => {
-  const res = await axios.get(
-    awsServer
-    // 'http://localhost:8000/contacts/get-all'
-  );
+  const res = await axios.get(`${awsServer}/get-all`);
   return res.data.data;
 };
 // test email validation
@@ -32,7 +29,7 @@ export const addContacts = async (
       throw new Error('Please enter a valid email address.');
     }
 
-    const res = await axios.post('http://localhost:8000/contacts/create', {
+    const res = await axios.post('${awsServer}/create', {
       // id: new Date(),
       name,
       address,
@@ -54,7 +51,7 @@ export const updateContact = async (
   number: string
 ): Promise<UpdateContactInterface> => {
   try {
-    const res = await axios.put(`http://localhost:8000/contacts/update/${id}`, {
+    const res = await axios.put(`${awsServer}/update/${id}`, {
       name,
       address,
       email,
@@ -70,9 +67,7 @@ export const updateContact = async (
 
 export const deleteContact = async (id: string) => {
   try {
-    const res = await axios.delete(
-      `http://localhost:8000/contacts/delete/${id}`
-    );
+    const res = await axios.delete(`${awsServer}/delete/${id}`);
 
     // queryClient.invalidateQueries({ queryKey: ['contacts'] });
     return res.data;
