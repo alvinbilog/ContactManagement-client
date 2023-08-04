@@ -1,8 +1,13 @@
 import axios from 'axios';
 import { ContactInterface, UpdateContactInterface } from '../types';
 
+const awsServer = 'http://3.144.254.102:8000/contacts/get-all';
+
 export const fetchContacts = async (): Promise<ContactInterface[]> => {
-  const res = await axios.get('http://localhost:8000/contacts/get-all');
+  const res = await axios.get(
+    awsServer
+    // 'http://localhost:8000/contacts/get-all'
+  );
   return res.data.data;
 };
 // test email validation
